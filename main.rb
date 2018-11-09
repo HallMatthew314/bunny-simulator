@@ -1,5 +1,7 @@
 load 'sex.rb'
+load 'colour.rb'
 
-puts "Hello world!"
-puts Sex::FEMALE
-puts Sex::MALE
+puts Colour::WHITE
+puts Colour::BROWN
+puts Colour::BLACK
+puts Colour::SPOTTED
