@@ -4,7 +4,6 @@ class Colony
 
 	def initialize()
 		@year = 0
-		@bunnies = []
-		5.times do @bunnies.push(Bunny.new) end
+		@bunnies = Array.new(5) { Bunny.new }
 	end
 end
