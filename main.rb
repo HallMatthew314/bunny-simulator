@@ -1,6 +1,9 @@
 load 'sex.rb'
 load 'colour.rb'
 load 'bunny.rb'
+load 'colony.rb'
 
-test_bun = Bunny.new
-puts test_bun
+# Begin the simulation
+c = Colony.new
+
+c.bunnies.each { |b| puts b }
