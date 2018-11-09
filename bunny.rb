@@ -9,6 +9,8 @@ class Bunny
 		@rmvb = rand(50) == 0 # @rmvb is true 2% of the time upon creation
 		namelist = @sex == 0 ? 'names_female.txt' : 'names_male.txt' # Pick name pool based on this bunny's sex
 		@name = File.readlines(namelist)[rand(50)].strip # Pick a name from the name pool and strip whitespace
+
+		EventLogger.announce_birth(@name, @rmvb)
 	end
 
 	def to_s

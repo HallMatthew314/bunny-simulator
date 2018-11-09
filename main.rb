@@ -1,3 +1,4 @@
+load 'event_logger.rb'
 load 'sex.rb'
 load 'colour.rb'
 load 'bunny.rb'
