@@ -12,7 +12,21 @@ class Bunny
 	end
 
 	def to_s
+		# Convert @sex Integer to String
+		s_sex = @sex == 0 ? "Female" : "Male"
+
+		# Convert @colour Integer to String
+		s_colour = case @colour
+			when 0 then "White"
+			when 1 then "Brown"
+			when 2 then "Black"
+			when 3 then "Spotted"
+			end	
+
+		# Convert @rmvb Bool to String
+		s_rmvb = @rmvb ? "RMVB" : "Not RMVB"
+
 		# All instance variables separated by tabs
-		format("%s\t%s\t%s\t%s\t%s", @name, @age, @sex, @colour, @rmvb)
+		format("%s\t%s\t%s\t%s\t%s", @name, @age, s_sex, s_colour, s_rmvb)
 	end
 end
