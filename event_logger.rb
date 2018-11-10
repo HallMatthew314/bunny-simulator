@@ -16,4 +16,8 @@ class EventLogger
   def self.announce_death(name, rmvb, age)
     puts format("%sBunny %s has died of old age (%s)", (rmvb == true ? "Radioactive Mutant Vampire " : ""), name, age)
   end
+
+  def self.announce_infection(name)
+    puts format("Bunny %s was infected!", name)
+  end
 end

@@ -22,6 +22,11 @@ class Bunny
     EventLogger.announce_older(@name, @rmvb, @age)
   end
 
+  def infect
+  	@rmvb = true
+  	EventLogger.announce_infection(@name)
+  end
+
   def too_old?
     # A bunny cannot be more than ten years old, an RMVB cannot be more than 50 years old
     @rmvb ? @age > 50 : @age > 10
