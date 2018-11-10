@@ -23,8 +23,15 @@ class Colony
     # This is split into two lines because deleting with .each misses some array entries
     @bunnies.delete_if { |b| b.too_old? }
 
+    #testing
+    puts count_rmvb
+
     # Prompt to press enter to either quit or simulate next year
     puts @bunnies.empty? ? "There are no more bunnies. Press enter to quit..." : "Press enter to simulate next year..."
     gets
+  end
+
+  def count_rmvb
+    @bunnies.select { |b| b.rmvb }.length
   end
 end
