@@ -13,9 +13,18 @@ class Bunny
 		EventLogger.announce_birth(@name, @rmvb)
 	end
 
+	def announce_death
+		EventLogger.announce_death(@name, @rmvb, @age)
+	end
+
 	def grow_older
 		@age += 1
 		EventLogger.announce_older(@name, @rmvb, @age)
+	end
+
+	def too_old?
+		# A bunny cannot be more than ten years old, an RMVB cannot be more than 50 years old
+		@rmvb ? @age > 50 : @age > 10
 	end
 
 	def to_s

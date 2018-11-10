@@ -18,6 +18,11 @@ class Colony
 		# Each bunny grows one year older
 		@bunnies.each { |b| b.grow_older }
 
+		# If a bunny is too old, they die of old age
+		@bunnies.each { |b| b.announce_death if b.too_old? }
+		# This is split into two lines because deleting with .each misses some array entries
+		@bunnies.delete_if { |b| b.too_old? }
+
 		puts "Press enter for next year"
 		gets
 	end
