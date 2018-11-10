@@ -13,6 +13,11 @@ class Bunny
 		EventLogger.announce_birth(@name, @rmvb)
 	end
 
+	def grow_older
+		@age += 1
+		EventLogger.announce_older(@name, @rmvb, @age)
+	end
+
 	def to_s
 		# Convert @rmvb Bool to String
 		s_rmvb = @rmvb ? "RMVB" : "Not RMVB"
