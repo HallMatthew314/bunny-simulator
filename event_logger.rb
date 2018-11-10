@@ -5,6 +5,7 @@ class EventLogger
 	end
 
 	def self.announce_birth(name, rmvb)
+		# Refer to a bunny as either 'Bunny' or 'Radioactive Mutant Vampire Bunny'
 		puts format("%sBunny %s was born!", (rmvb == true ? "Radioactive Mutant Vampire " : ""), name)
 	end
 end
