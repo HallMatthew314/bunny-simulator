@@ -14,9 +14,6 @@ class Bunny
 	end
 
 	def to_s
-		# Convert @sex Integer to String
-		s_sex = @sex == 0 ? "Female" : "Male"
-
 		# Convert @colour Integer to String
 		s_colour = case @colour
 			when 0 then "White"
@@ -29,6 +26,6 @@ class Bunny
 		s_rmvb = @rmvb ? "RMVB" : "Not RMVB"
 
 		# All instance variables separated by tabs
-		format("%s\t%s\t%s\t%s\t%s", @name, @age, s_sex, s_colour, s_rmvb)
+		format("%s\t%s\t%s\t%s\t%s", @name, @age, Sex.value_to_string(@sex), s_colour, s_rmvb)
 	end
 end
