@@ -13,4 +13,8 @@ module Colour
     else 'Invalid'
     end
   end
+
+  def self.pick_random
+    rand(4)
+  end
 end

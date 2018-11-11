@@ -9,4 +9,8 @@ module Sex
     else 'Invalid'
     end
   end
+
+  def self.pick_random
+    rand(2)
+  end
 end
