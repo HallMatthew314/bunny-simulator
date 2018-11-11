@@ -26,6 +26,10 @@ class Colony
     # This is split into two lines because deleting with .each misses some array entries
     @bunnies.delete_if { |b| b.too_old? }
 
+    #testing
+    @bunnies.each { |b| puts b.to_s }
+    puts bunnies_to_be_born
+
     # Prompt to press enter to either quit or simulate next year
     puts @bunnies.empty? ? 'There are no more bunnies. Press enter to quit...' : 'Press enter to simulate next year...'
     gets
@@ -53,5 +57,11 @@ class Colony
         end
       end
     end
+  end
+
+  def bunnies_to_be_born
+    # REVIEW: This should work as a ternary statement, but the line is very long. Break into multiple lines?
+    # If there is at least one elligible male, return the number of elligible females. Otherwise, return 0.
+    @bunnies.any? { |b| !b.rmvb && b.sex == Sex::MALE && b.age >= 2 } ? @bunnies.select { |b| !b.rmvb && b.sex == Sex::FEMALE && b.age >= 2 }.length : 0
   end
 end
