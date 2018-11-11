@@ -2,13 +2,13 @@ class Colony
   
   attr_accessor :bunnies, :year
 
-  def initialize()
+  def initialize
     @year = 0
 
     next_year() until @year > 0 && @bunnies.empty?
   end
 
-  def next_year()
+  def next_year
     @year += 1
     EventLogger.announce_year_start(@year)
 
