@@ -27,7 +27,7 @@ class Colony
     @bunnies.delete_if { |b| b.too_old? }
 
     # Prompt to press enter to either quit or simulate next year
-    puts @bunnies.empty? ? "There are no more bunnies. Press enter to quit..." : "Press enter to simulate next year..."
+    puts @bunnies.empty? ? 'There are no more bunnies. Press enter to quit...' : 'Press enter to simulate next year...'
     gets
   end
 

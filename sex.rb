@@ -4,9 +4,9 @@ module Sex
 
   def self.value_to_string(n)
     case n
-    when 0 then "Female"
-    when 1 then "Male"
-    else "Invalid"
+    when 0 then 'Female'
+    when 1 then 'Male'
+    else 'Invalid'
     end
   end
 end

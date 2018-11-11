@@ -34,7 +34,7 @@ class Bunny
 
   def to_s
     # Convert @rmvb Bool to String
-    s_rmvb = @rmvb ? "RMVB" : "Not RMVB"
+    s_rmvb = @rmvb ? 'RMVB' : 'Not RMVB'
 
     # All instance variables separated by tabs
     format("%s\t%s\t%s\t%s\t%s", @name, @age, Sex.value_to_string(@sex), Colour.value_to_string(@colour), s_rmvb)
