@@ -21,6 +21,10 @@ class Colony
     # Every RMVB infects excatly 1 regular bunny
     infect_population if count_rmvb > 0
 
+    # Every mature female has a baby (if possible)
+    # Offspring are given the same colour as their mother
+    mature_females.each { |m| @bunnies.push(Bunny.new(colour: m.colour)) }
+
     # If a bunny is too old, they die of old age
     @bunnies.each { |b| b.announce_death if b.too_old? }
     # This is split into two lines because deleting with .each misses some array entries
@@ -40,6 +44,10 @@ class Colony
 
   def count_non_rmvb
     @bunnies.reject { |b| b.rmvb }.length
+  end
+
+  def mature_females
+    @bunnies.select { |b| !b.rmvb && b.sex == Sex::FEMALE && b.age >= 2 }
   end
 
   def infect_population
