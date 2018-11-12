@@ -74,6 +74,7 @@ class Colony
 
   def print_colony_summary
     puts 'Colony Summary:' unless @bunnies.empty?
+    puts format("Population size: %s", @bunnies.length)
     @bunnies.each { |b| puts b.to_s }
   end
 end
