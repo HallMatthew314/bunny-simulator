@@ -26,9 +26,12 @@ class Colony
     mature_females.each { |m| @bunnies.push(Bunny.new(colour: m.colour)) }
 
     # If a bunny is too old, they die of old age
-    @bunnies.each { |b| b.announce_death if b.too_old? }
+    @bunnies.each { |b| b.announce_death(cause: CauseOfDeath::OLD_AGE) if b.too_old? }
     # This is split into two lines because deleting with .each misses some array entries
     @bunnies.delete_if { |b| b.too_old? }
+
+    # If the colony is overpopulated, a food shortage occurs, killing exactly half of the bunnies
+    famine if overpopulated?
 
     # Show status of the colony
     print_colony_summary
@@ -76,5 +79,19 @@ class Colony
     puts 'Colony Summary:' unless @bunnies.empty?
     puts format("Population size: %s", @bunnies.length)
     @bunnies.each { |b| puts b.to_s }
+  end
+
+  def famine
+    EventLogger.announce_famine
+    target_population = @bunnies.length / 2
+    until @bunnies.length == target_population do
+      victim_index = rand(@bunnies.length)
+      @bunnies[victim_index].announce_death(cause: CauseOfDeath::FAMINE)
+      @bunnies.delete_at(victim_index)
+    end
+  end
+
+  def overpopulated?
+    @bunnies.length > 1000
   end
 end

@@ -14,8 +14,8 @@ class Bunny
     EventLogger.announce_birth(@name, @rmvb)
   end
 
-  def announce_death
-    EventLogger.announce_death(@name, @rmvb, @age)
+  def announce_death(cause: CauseOfDeath::OLD_AGE)
+    EventLogger.announce_death(@name, @rmvb, @age, cause: cause)
   end
 
   def grow_older
