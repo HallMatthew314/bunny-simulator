@@ -78,7 +78,8 @@ class Colony
   def print_colony_summary
     puts 'Colony Summary:' unless @bunnies.empty?
     puts format("Population size: %s", @bunnies.length)
-    @bunnies.each { |b| puts b.to_s }
+    puts format("Male to Female ratio: %.2f", @bunnies.select { |b| b.sex == Sex::MALE }.length.to_f / @bunnies.select { |b| b.sex == Sex::FEMALE }.length.to_f)
+    puts format("Percentage of population RMVB: %.1f%%", 100 * count_rmvb.to_f / @bunnies.length.to_f)
   end
 
   def famine
