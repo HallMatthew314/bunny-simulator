@@ -76,13 +76,14 @@ class Colony
   end
 
   def famine
-    EventLogger.announce_famine
-    target_population = @bunnies.length / 2
-    until @bunnies.length == target_population do
-      victim_index = rand(@bunnies.length)
-      @bunnies[victim_index].announce_death(cause: CauseOfDeath::FAMINE)
-      @bunnies.delete_at(victim_index)
-    end
+    EventLogger.announce_famine(@bunnies.length)
+    
+    indexes = (0..@bunnies.length-1).to_a
+    half = @bunnies.length/2
+
+    marked_for_death = indexes.shuffle.first(half)
+    marked_for_death.each { |i| @bunnies[i].announce_death(cause: CauseOfDeath::FAMINE) }
+    marked_for_death.reverse_each { |i| @bunnies.delete_at(i) }
   end
 
   def overpopulated?
