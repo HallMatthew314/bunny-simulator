@@ -54,19 +54,12 @@ class Colony
   end
 
   def infect_population
-    # Used as argument for rand()
-    infection_chance = @bunnies.length - count_rmvb
-    bunnies_to_infect = count_rmvb
+    # Get list of indexes of uninfected bunnies
+    bunnies_to_infect = []
+    @bunnies.each_with_index { |b,i| bunnies_to_infect.push(i) if !b.rmvb }
 
-    until count_non_rmvb == 0 || bunnies_to_infect == 0 do
-      @bunnies.each do |b|
-        break if count_non_rmvb == 0 || bunnies_to_infect == 0
-        if !b.rmvb && rand(infection_chance) == 0 then
-          b.infect
-          bunnies_to_infect -= 1
-        end
-      end
-    end
+    # Randomly infect the population
+    bunnies_to_infect.shuffle.first(count_rmvb).sort.reverse_each { |i| @bunnies[i].infect }
   end
 
   def bunnies_to_be_born
