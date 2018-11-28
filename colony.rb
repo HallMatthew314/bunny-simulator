@@ -59,7 +59,7 @@ class Colony
     @bunnies.each_with_index { |b,i| bunnies_to_infect.push(i) if !b.rmvb }
 
     # Randomly infect the population
-    bunnies_to_infect.shuffle.first(count_rmvb).sort.reverse_each { |i| @bunnies[i].infect }
+    bunnies_to_infect.shuffle.first(count_rmvb).sort.each { |i| @bunnies[i].infect }
   end
 
   def bunnies_to_be_born
