@@ -5,7 +5,7 @@ class Colony
   def initialize
     @year = 0
 
-    next_year() until @year > 0 && @bunnies.empty?
+    next_year until @year > 0 && @bunnies.empty?
   end
 
   def next_year
@@ -23,7 +23,7 @@ class Colony
 
     # Every mature female has a baby (if possible)
     # Offspring are given the same colour as their mother
-    mature_females.each { |m| @bunnies.push(Bunny.new(colour: m.colour)) }
+    mature_females.each { |m| @bunnies.push(Bunny.new(colour: m.colour)) } if able_to_multiply?
 
     # If a bunny is too old, they die of old age
     @bunnies.each { |b| b.announce_death(cause: CauseOfDeath::OLD_AGE) if b.too_old? }
@@ -34,7 +34,7 @@ class Colony
     famine if overpopulated?
 
     # Show status of the colony
-    print_colony_summary
+    print_colony_summary unless @bunnies.empty?
 
     # Prompt to press enter to either quit or simulate next year
     puts @bunnies.empty? ? 'There are no more bunnies. Press enter to quit...' : 'Press enter to simulate next year...'
@@ -62,14 +62,12 @@ class Colony
     bunnies_to_infect.shuffle.first(count_rmvb).sort.each { |i| @bunnies[i].infect }
   end
 
-  def bunnies_to_be_born
-    # REVIEW: This should work as a ternary statement, but the line is very long. Break into multiple lines?
-    # If there is at least one elligible male, return the number of elligible females. Otherwise, return 0.
-    @bunnies.any? { |b| !b.rmvb && b.sex == Sex::MALE && b.age >= 2 } ? @bunnies.select { |b| !b.rmvb && b.sex == Sex::FEMALE && b.age >= 2 }.length : 0
+  def able_to_multiply?
+    @bunnies.any? { |b| !b.rmvb && b.sex == Sex::MALE && b.age >= 2 } && mature_females.length > 0
   end
 
   def print_colony_summary
-    puts 'Colony Summary:' unless @bunnies.empty?
+    puts 'Colony Summary:'
     puts format("Population size: %s", @bunnies.length)
     puts format("Male to Female ratio: %.2f", @bunnies.select { |b| b.sex == Sex::MALE }.length.to_f / @bunnies.select { |b| b.sex == Sex::FEMALE }.length.to_f)
     puts format("Percentage of population RMVB: %.1f%%", 100 * count_rmvb.to_f / @bunnies.length.to_f)
