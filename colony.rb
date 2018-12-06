@@ -76,7 +76,7 @@ class Colony
   def famine
     EventLogger.announce_famine(@bunnies.length)
     
-    indexes = (0..@bunnies.length-1).to_a
+    indexes = (0...@bunnies.length).to_a
     half = @bunnies.length/2
 
     marked_for_death = indexes.shuffle.first(half)
