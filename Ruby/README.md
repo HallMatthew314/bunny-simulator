@@ -16,8 +16,8 @@
  - ~~Radioactive Mutant Vampire Bunnies infect other bunnies~~
  - ~~Program prints colony information for each year~~
  - ~~Program outputs events~~
- - Screen output is also written to a file~~
- - ~~Food shortages kill half of the population when it exceeds 1,000 bunnies
+ - Screen output is also written to a file
+ - ~~Food shortages kill half of the population when it exceeds 1,000 bunnies~~
  - ~~Program ends when all bunnies are dead~~
 
 ## Extras:
