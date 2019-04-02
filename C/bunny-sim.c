@@ -139,6 +139,7 @@ Bunny* newBunny(void);
 Bunny* addToStart(Bunny* startPtr);
 Bunny* addToEnd(Bunny* startPtr);
 //Bunny* deleteBunny(Bunny* deleteMe);
+//Bunny* sortList(Bunny* startPtr);
 void printList(Bunny* start);
 void cleanUp(Bunny* start);
 
@@ -164,7 +165,7 @@ Bunny* newBunny(void){
 
 	b->age = 10;
 	b->sex = sexes[rand() % SEXCOUNT];
-	b->name = (b->sex == &sexes[0]) ? femaleNames[rand() % NAMECOUNT] : maleNames[rand() % NAMECOUNT];
+	b->name = (b->sex == sexes[0]) ? femaleNames[rand() % NAMECOUNT] : maleNames[rand() % NAMECOUNT];
 	b->colour = colours[rand() % COLOURCOUNT];
 	b->rmvb = (rand() % CHANCE_RMVB == 0) ? 1 : 0;
 
