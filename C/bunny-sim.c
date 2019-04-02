@@ -139,23 +139,26 @@ Bunny* newBunny(void);
 Bunny* addToStart(Bunny* startPtr);
 Bunny* addToEnd(Bunny* startPtr);
 //Bunny* deleteBunny(Bunny* deleteMe);
-//Bunny* sortList(Bunny* startPtr);
+Bunny* sortList(Bunny* startPtr);
+int listSize(Bunny* startPtr);
 void printList(Bunny* start);
 void cleanUp(Bunny* start);
 
 int main(){
 
 	srand(time(NULL));
-	Bunny* start = NULL;
+	Bunny* startOfList = NULL;
 
-	start = addToStart(start);
-	printList(start);
-	start = addToEnd(start);
-	printList(start);
-	start = addToStart(start);
-	printList(start);
+	startOfList = addToStart(startOfList);
+	printList(startOfList);
+	startOfList = addToEnd(startOfList);
+	printList(startOfList);
+	startOfList = addToStart(startOfList);
+	printList(startOfList);
+	startOfList = sortList(startOfList);
+	printList(startOfList);
 
-	cleanUp(start);
+	cleanUp(startOfList);
 	return 0;
 }
 
@@ -163,7 +166,7 @@ Bunny* newBunny(void){
 
 	Bunny* b = malloc(sizeof(Bunny));
 
-	b->age = 10;
+	b->age = rand() % 10;
 	b->sex = sexes[rand() % SEXCOUNT];
 	b->name = (b->sex == sexes[0]) ? femaleNames[rand() % NAMECOUNT] : maleNames[rand() % NAMECOUNT];
 	b->colour = colours[rand() % COLOURCOUNT];
@@ -209,6 +212,59 @@ Bunny* addToEnd(Bunny* startPtr){
 	return returnPtr;
 }
 
+Bunny* sortList(Bunny* startPtr){
+
+	//create pointer array for every bunny in the list
+	int size = listSize(startPtr);
+	Bunny* pointers[size];
+
+	//find highest age in the list (highest)
+	Bunny* b = startPtr;
+	int highestAge = 0;
+	while(b != NULL){
+		if(b->age > highestAge){
+			highestAge = b->age;
+		}
+		b = b->next;
+	}
+
+	int i = 0;
+
+	//loop through the list highest+1 times
+	for(int a = 0; a < highestAge + 1; ++a){
+		//if b->age == age, add to next index in pointer array
+		b = startPtr;
+		while(b != NULL){
+			if(b->age == a){
+				pointers[i++] = b;
+			}
+			b = b->next;
+		}
+	}
+
+	//put array addresses back into list
+	pointers[0]->previous = NULL;
+	pointers[size-1]->next = NULL;
+	for(int i = 0; i < size - 1; ++i){
+		pointers[i]->next = pointers[i+1];
+		pointers[i+1]->previous = pointers[i];
+	}
+
+	return pointers[0];
+}
+
+int listSize(Bunny* startPtr){
+	int count = 0;
+	Bunny* b = startPtr;
+
+	while(b != NULL){
+		count++;
+		b = b->next;
+	}
+
+	return count;
+}
+
 void printList(Bunny* start){
 	Bunny* b = start;
 
@@ -225,7 +281,7 @@ void printList(Bunny* start){
 
 		b = b->next;
 	}
-	printf("----------------------------\n");
+	printf("Total: %d\n----------------------------\n", listSize(start));
 }
 
 void cleanUp(Bunny* start){
