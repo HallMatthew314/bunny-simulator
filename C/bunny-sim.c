@@ -138,7 +138,7 @@ const char* colours[COLOURCOUNT] = {
 Bunny* newBunny(void);
 Bunny* addToStart(Bunny* startPtr);
 Bunny* addToEnd(Bunny* startPtr);
-//Bunny* deleteBunny(Bunny* deleteMe);
+Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe);
 Bunny* sortList(Bunny* startPtr);
 int listSize(Bunny* startPtr);
 void printList(Bunny* start);
@@ -191,6 +191,7 @@ Bunny* addToStart(Bunny* startPtr){
 }
 
 Bunny* addToEnd(Bunny* startPtr){
+
 	Bunny* returnPtr = startPtr;
 	Bunny* b = NULL;
 
@@ -210,6 +211,27 @@ Bunny* addToEnd(Bunny* startPtr){
 	}
 
 	return returnPtr;
+}
+
+Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe){
+
+	//if this is the first item in the list
+	if(deleteMe->previous == NULL){
+		startPtr = deleteMe->next;
+		deleteMe->next->previous = NULL;
+		free(deleteMe);
+	}
+	else if(deleteMe->next == NULL){
+		deleteMe->previous->next = NULL;
+		free(deleteMe);
+	}
+	else{
+		deleteMe->previous->next = deleteMe->next;
+		deleteMe->next->previous = deleteMe->previous;
+		free(deleteMe);
+	}
+
+	return startPtr;
 }
 
 Bunny* sortList(Bunny* startPtr){
@@ -254,6 +276,7 @@ Bunny* sortList(Bunny* startPtr){
 }
 
 int listSize(Bunny* startPtr){
+
 	int count = 0;
 	Bunny* b = startPtr;
 
@@ -266,6 +289,7 @@ int listSize(Bunny* startPtr){
 }
 
 void printList(Bunny* start){
+	
 	Bunny* b = start;
 
 	printf("----------------------------\n");
