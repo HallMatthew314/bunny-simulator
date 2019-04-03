@@ -221,6 +221,7 @@ Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe){
 		deleteMe->next->previous = NULL;
 		free(deleteMe);
 	}
+	//ig this is the last bunny in the list
 	else if(deleteMe->next == NULL){
 		deleteMe->previous->next = NULL;
 		free(deleteMe);
