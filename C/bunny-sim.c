@@ -135,7 +135,8 @@ const char* colours[COLOURCOUNT] = {
 	"Spotted"
 };
 
-Bunny* newBunny(void);
+void* emalloc(Bunny* startPtr, size_t s);
+Bunny* newBunny(Bunny* startPtr);
 Bunny* addToStart(Bunny* startPtr);
 Bunny* addToEnd(Bunny* startPtr);
 Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe);
@@ -162,9 +163,20 @@ int main(){
 	return 0;
 }
 
-Bunny* newBunny(void){
+//courtesy of Dr. Nathan Rountree (University of Otago)
+void* emalloc(Bunny* startPtr, size_t s){
+	void* result = malloc(s);
+	if(result == NULL){
+		fprintf(stderr, "Memory allocation failed!\n");
+		cleanUp(startPtr);
+		exit(EXIT_FAILURE);
+	}
+	return result;
+}
 
-	Bunny* b = malloc(sizeof(Bunny));
+Bunny* newBunny(Bunny* startPtr){
+
+	Bunny* b = emalloc(startPtr, sizeof(Bunny));
 
 	b->age = rand() % 10;
 	b->sex = sexes[rand() % SEXCOUNT];
@@ -180,7 +192,7 @@ Bunny* newBunny(void){
 
 Bunny* addToStart(Bunny* startPtr){
 	
-	Bunny* b = newBunny();
+	Bunny* b = newBunny(startPtr);
 
 	if(startPtr != NULL){
 		startPtr->previous = b;
@@ -204,7 +216,7 @@ Bunny* addToEnd(Bunny* startPtr){
 		while(indexBunny->next != NULL){
 			indexBunny = indexBunny->next;
 		}
-		b = newBunny();
+		b = newBunny(startPtr);
 		indexBunny->next = b;
 		b->next = NULL;
 		b->previous = indexBunny;
