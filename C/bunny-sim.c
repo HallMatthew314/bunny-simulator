@@ -178,7 +178,7 @@ Bunny* newBunny(Bunny* startPtr){
 
 	Bunny* b = emalloc(startPtr, sizeof(Bunny));
 
-	b->age = rand() % 10;
+	b->age = 0;
 	b->sex = sexes[rand() % SEXCOUNT];
 	b->name = (b->sex == sexes[0]) ? femaleNames[rand() % NAMECOUNT] : maleNames[rand() % NAMECOUNT];
 	b->colour = colours[rand() % COLOURCOUNT];
