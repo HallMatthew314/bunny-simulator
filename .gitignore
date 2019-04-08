@@ -1,1 +1,3 @@
 C/bunny-sim
+Ruby/*.txt
+!Ruby/names_*.txt
