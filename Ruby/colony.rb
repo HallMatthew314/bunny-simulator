@@ -69,8 +69,16 @@ class Colony
   def print_colony_summary
     puts 'Colony Summary:'
     puts format("Population size: %s", @bunnies.length)
-    puts format("Male to Female ratio: %s", Rational(@bunnies.select { |b| b.sex == Sex::MALE }.length, @bunnies.select { |b| b.sex == Sex::FEMALE }.length.to_f))
+    puts format("Male to Female ratio: %s", male_female_ratio_string)
     puts format("Percentage of population RMVB: %.1f%%", 100 * count_rmvb.to_f / @bunnies.length.to_f)
+  end
+
+  def male_female_ratio_string
+    m_count = @bunnies.select { |b| b.sex == Sex::MALE }.length
+    f_count = @bunnies.select { |b| b.sex == Sex::FEMALE }.length
+    return 'All Male' if f_count == 0
+    return 'All Female' if m_count == 0
+    return Rational(m_count, f_count).to_s
   end
 
   def famine
