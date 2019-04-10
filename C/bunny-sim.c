@@ -141,7 +141,7 @@ Bunny* addToStart(Bunny* startPtr);
 Bunny* addToEnd(Bunny* startPtr);
 Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe);
 Bunny* sortList(Bunny* startPtr);
-int listSize(Bunny* startPtr);
+int getListSize(Bunny* startPtr);
 void printList(Bunny* start);
 void cleanUp(Bunny* start);
 
@@ -250,7 +250,7 @@ Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe){
 Bunny* sortList(Bunny* startPtr){
 
 	//create pointer array for every bunny in the list
-	int size = listSize(startPtr);
+	int size = getListSize(startPtr);
 	Bunny* pointers[size];
 
 	//find highest age in the list (highest)
@@ -288,7 +288,7 @@ Bunny* sortList(Bunny* startPtr){
 	return pointers[0];
 }
 
-int listSize(Bunny* startPtr){
+int getListSize(Bunny* startPtr){
 
 	int count = 0;
 	Bunny* b = startPtr;
@@ -318,7 +318,7 @@ void printList(Bunny* start){
 
 		b = b->next;
 	}
-	printf("Total: %d\n----------------------------\n", listSize(start));
+	printf("Total: %d\n----------------------------\n", getListSize(start));
 }
 
 void cleanUp(Bunny* start){
