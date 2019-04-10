@@ -1,7 +1,9 @@
 #define NAMECOUNT 50
 #define SEXCOUNT 2
 #define COLOURCOUNT 4
-#define CHANCE_RMVB 50 
+#define CHANCE_RMVB 50
+#define SEX_FEMALE 0
+#define SEX_MALE 1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -142,6 +144,7 @@ Bunny* addToEnd(Bunny* startPtr);
 Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe);
 Bunny* sortList(Bunny* startPtr);
 int getListSize(Bunny* startPtr);
+int countMatureFemales(Bunny* startPtr);
 void printList(Bunny* start);
 void cleanUp(Bunny* start);
 
@@ -158,6 +161,7 @@ int main(){
 	printList(startOfList);
 	startOfList = sortList(startOfList);
 	printList(startOfList);
+	printf("Count: %d\n", countMatureFemales(startOfList));
 
 	cleanUp(startOfList);
 	return 0;
@@ -178,7 +182,7 @@ Bunny* newBunny(Bunny* startPtr){
 
 	Bunny* b = emalloc(startPtr, sizeof(Bunny));
 
-	b->age = 0;
+	b->age = 2;
 	b->sex = sexes[rand() % SEXCOUNT];
 	b->name = (b->sex == sexes[0]) ? femaleNames[rand() % NAMECOUNT] : maleNames[rand() % NAMECOUNT];
 	b->colour = colours[rand() % COLOURCOUNT];
@@ -295,6 +299,20 @@ int getListSize(Bunny* startPtr){
 
 	while(b != NULL){
 		count++;
+		b = b->next;
+	}
+
+	return count;
+}
+
+int countMatureFemales(Bunny* startPtr){
+	int count = 0;
+	Bunny* b = startPtr;
+
+	while(b != NULL){
+		if(b->sex == sexes[SEX_FEMALE] && b->age > 1){
+			count++;
+		}
 		b = b->next;
 	}
 
