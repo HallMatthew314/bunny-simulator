@@ -145,6 +145,7 @@ Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe);
 Bunny* sortList(Bunny* startPtr);
 int getListSize(Bunny* startPtr);
 int countMatureFemales(Bunny* startPtr);
+int calcMatureMalePresent(Bunny* startPtr);
 void printList(Bunny* start);
 void cleanUp(Bunny* start);
 
@@ -161,7 +162,7 @@ int main(){
 	printList(startOfList);
 	startOfList = sortList(startOfList);
 	printList(startOfList);
-	printf("Count: %d\n", countMatureFemales(startOfList));
+	printf("Function: %d\n", calcMatureMalePresent(startOfList));
 
 	cleanUp(startOfList);
 	return 0;
@@ -317,6 +318,17 @@ int countMatureFemales(Bunny* startPtr){
 	}
 
 	return count;
+}
+
+int calcMatureMalePresent(Bunny* startPtr){
+	Bunny* b = startPtr;
+	while(b != NULL){
+		if(b->sex == sexes[SEX_MALE] && b->age > 1){
+			return 1;
+		}
+		b = b->next;
+	}
+	return 0;
 }
 
 void printList(Bunny* start){
