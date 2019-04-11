@@ -26,7 +26,7 @@
  3. Modify the program to place the rabits in an 80x80 grid:
    - Have the rabits move one space each turn randomly.
    - Mark juvenile males with m, adult males w/ M,
-   - juvenile females w/ f, adult femails w/ F
+   - juvenile females w/ f, adult females w/ F
    - radioactive mutant vampire bunnies with X
    - Modify the program so that radioactive mutant vampire bunnies only convert bunnies that end a turn on an adjacent square.
    - Modify the program so that new babies are born in an empty random adjacent square next to the mother bunny. (if no empty square exits then the baby bunny isn't born)
