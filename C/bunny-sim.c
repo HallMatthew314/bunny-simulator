@@ -137,18 +137,21 @@ const char* colours[COLOURCOUNT] = {
 	"Spotted"
 };
 
+char inputBuffer[16];
+
 void* emalloc(Bunny* startPtr, size_t s);
 Bunny* newBunny(Bunny* startPtr);
 Bunny* addToStart(Bunny* startPtr);
 Bunny* addToEnd(Bunny* startPtr);
 Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe);
 Bunny* sortList(Bunny* startPtr);
+void makeBunniesGrowOlder(Bunny* startPtr);
 int getListSize(Bunny* startPtr);
 int countMatureFemales(Bunny* startPtr);
 int calcMatureMalePresent(Bunny* startPtr);
 void printList(Bunny* start);
 void cleanUp(Bunny* start);
-char inputBuffer[16];
+
 int main(){
 
 	srand(time(NULL));
@@ -165,6 +168,9 @@ int main(){
 		}
 
 		printf("Year %d\n\n", year);
+
+		makeBunniesGrowOlder(startOfList);
+
 		printList(startOfList);
 		printf("Press enter to continue...");
 		fgets(inputBuffer, 15, stdin);
@@ -245,7 +251,7 @@ Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe){
 		deleteMe->next->previous = NULL;
 		free(deleteMe);
 	}
-	//ig this is the last bunny in the list
+	//if this is the last bunny in the list
 	else if(deleteMe->next == NULL){
 		deleteMe->previous->next = NULL;
 		free(deleteMe);
@@ -298,6 +304,17 @@ Bunny* sortList(Bunny* startPtr){
 	}
 
 	return pointers[0];
+}
+
+void makeBunniesGrowOlder(Bunny* startPtr){
+	Bunny* b = startPtr;
+
+	while(b != NULL){
+		b->age++;
+		// this printf will be its own function at some point
+		printf("%s grew to age %d\n", b->name, b->age);
+		b = b->next;
+	}
 }
 
 int getListSize(Bunny* startPtr){
