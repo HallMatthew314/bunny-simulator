@@ -8,7 +8,7 @@
 ## Todo list:
  - ~~Bunny objects~~
  - ~~(Linked) list of bunny objects~~
- - On start, five random-coloured bunnies
+ - ~~On start, five random-coloured bunnies~~
  - Bunnies age one year after each turn
  - Bunny reproduction, # of new bunnies = # of mature females
  - Bunnies have same colour as their mothers

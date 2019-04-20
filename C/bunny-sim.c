@@ -148,22 +148,29 @@ int countMatureFemales(Bunny* startPtr);
 int calcMatureMalePresent(Bunny* startPtr);
 void printList(Bunny* start);
 void cleanUp(Bunny* start);
-
+char inputBuffer[16];
 int main(){
 
 	srand(time(NULL));
 	Bunny* startOfList = NULL;
+	int year = 1;
 
-	startOfList = addToStart(startOfList);
-	printList(startOfList);
-	startOfList = addToEnd(startOfList);
-	printList(startOfList);
-	startOfList = addToStart(startOfList);
-	printList(startOfList);
-	startOfList = sortList(startOfList);
-	printList(startOfList);
-	printf("Function: %d\n", calcMatureMalePresent(startOfList));
+	while(getListSize(startOfList) > 0 || year == 1){
+		if(year == 1){
+			startOfList = addToStart(startOfList);
+			startOfList = addToStart(startOfList);
+			startOfList = addToStart(startOfList);
+			startOfList = addToStart(startOfList);
+			startOfList = addToStart(startOfList);
+		}
 
+		printf("Year %d\n\n", year);
+		printList(startOfList);
+		printf("Press enter to continue...");
+		fgets(inputBuffer, 15, stdin);
+		++year;
+	}
+	printf("After the loop\n");
 	cleanUp(startOfList);
 	return 0;
 }
@@ -183,7 +190,7 @@ Bunny* newBunny(Bunny* startPtr){
 
 	Bunny* b = emalloc(startPtr, sizeof(Bunny));
 
-	b->age = 2;
+	b->age = 0;
 	b->sex = sexes[rand() % SEXCOUNT];
 	b->name = (b->sex == sexes[0]) ? femaleNames[rand() % NAMECOUNT] : maleNames[rand() % NAMECOUNT];
 	b->colour = colours[rand() % COLOURCOUNT];
