@@ -1,9 +1,17 @@
+// TODO:
+// ------
+// deleteBunny() - segfaults when deleting the only bunny in the list
+// Re-write deleteOldBunnies() to start and the end of the list, should improve performance
+// Figure out how to format text without printing it
+// Create special print method which writes to the stdout and appends to a file
+
 #define NAMECOUNT 50
 #define SEXCOUNT 2
 #define COLOURCOUNT 4
 #define CHANCE_RMVB 50
 #define SEX_FEMALE 0
 #define SEX_MALE 1
+#define MAX_AGE 10
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -146,6 +154,7 @@ Bunny* addToEnd(Bunny* startPtr);
 Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe);
 Bunny* sortList(Bunny* startPtr);
 void makeBunniesGrowOlder(Bunny* startPtr);
+Bunny* deleteOldBunnies(Bunny* startPtr);
 int getListSize(Bunny* startPtr);
 int countMatureFemales(Bunny* startPtr);
 int calcMatureMalePresent(Bunny* startPtr);
@@ -169,7 +178,9 @@ int main(){
 
 		printf("Year %d\n\n", year);
 
+		startOfList = sortList(startOfList);
 		makeBunniesGrowOlder(startOfList);
+		startOfList = deleteOldBunnies(startOfList);
 
 		printList(startOfList);
 		printf("Press enter to continue...");
@@ -247,19 +258,29 @@ Bunny* deleteBunny(Bunny* startPtr, Bunny* deleteMe){
 
 	//if this is the first item in the list
 	if(deleteMe->previous == NULL){
+		printf("start of list detected\n");//
 		startPtr = deleteMe->next;
-		deleteMe->next->previous = NULL;
+		printf("next pointer reassigned\n");//
+		deleteMe->next->previous = NULL;//this line segfaults if there is only one bunny
+		printf("previous pointer reassigned\n");//
 		free(deleteMe);
+		printf("memory freed\n");//
 	}
 	//if this is the last bunny in the list
 	else if(deleteMe->next == NULL){
+		printf("end of list detected\n");//
 		deleteMe->previous->next = NULL;
+		printf("pointers reassigned\n");//
 		free(deleteMe);
+		printf("memory freed\n");//
 	}
 	else{
+		printf("somewhere else in the list\n");//
 		deleteMe->previous->next = deleteMe->next;
 		deleteMe->next->previous = deleteMe->previous;
+		printf("pointers reassigned\n");//
 		free(deleteMe);
+		printf("memory freed\n");//
 	}
 
 	return startPtr;
@@ -315,6 +336,27 @@ void makeBunniesGrowOlder(Bunny* startPtr){
 		printf("%s grew to age %d\n", b->name, b->age);
 		b = b->next;
 	}
+}
+
+Bunny* deleteOldBunnies(Bunny* startPtr){
+	Bunny* b = startPtr;
+	Bunny* deleteMe;
+
+	while(b != NULL){
+		if(b->age > MAX_AGE){
+			deleteMe = b;
+			b = b->next;
+			// this printf will be its own function at some point
+			printf("%s has died of old age\n", deleteMe->name);
+			startPtr = deleteBunny(startPtr, deleteMe);
+			printf("Deletion successful\n");
+		}
+		else{
+			b = b->next;
+		}
+	}
+
+	return startPtr;
 }
 
 int getListSize(Bunny* startPtr){
